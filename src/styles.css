@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app {
+    padding: 100px 0;
+}
+.mount__header {
+    padding: 25px 0;
+    margin: auto;
+    width: 100%;
+    border-bottom: 1px solid #dad7d7;
+}
+
+.days__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 500px;
+    position: relative;
+    padding-top: 25px;
+}
+.day__item {
+    width: 78px;
+    height: 78px;
+    /*padding: 30px;*/
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    transition: all .5s ease-in-out;
+    border: 1px solid #e8e8e8;
+}
+.day__item.details {
+    width: 100%;
+    height: 100%;
+    padding: 60px;
+    position: absolute;
+    cursor: pointer;
+    background-color: #bcbcbc;
+}
+
+.day__item.details .day__item-input {
+    display: block;
+}
+
+.day__item-input {
+    display: none;
+    transition: all .5s ease-in-out;
+}
+.day__item-todo{
+    padding: 0;
+}
+
+.day__item-todo li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.day__item .day__item-todo li:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: blueviolet;
+    position: absolute;
+    left: 0px;
+    top: 3px;
+    transition: all .5s ease-in-out;
+}
+
+.day__item.details li:before {
+    width: 10px;
+    height: 10px;
+}
+
+.day__item:hover {
+    background-color: #bcbcbc;
+}

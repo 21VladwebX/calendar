@@ -1,54 +1,43 @@
 import { monthHeaderTempl, daysTempl } from "./common/templates.js";
-import { getCustomData, getDaysWrap } from './common/utils.js';
-import { DAY_ITEM_CLASS_NAME } from  './common/constants.js';
+import { getDaysWrap } from './common/utils.js';
+import { addActions } from  './common/actions.js';
+import { EventObserver, CustomData } from "./common/classes.js";
+
+const observer = new EventObserver();
+const dataObject = new CustomData();
 
 const daysWrapper = (days) => {
   const daysWrap = getDaysWrap(days);
-  const daysSection = daysTempl(daysWrap)
-  //add Listeners
-  return daysSection;
+  return daysTempl(daysWrap)
 }
 
-const addActions = () => {
-  const calendarWrapper = document.getElementsByClassName('days__wrapper')[0];
-  calendarWrapper.addEventListener('click', ({target})=>{
-    //TODO @Vlad set day__item to constants
-    if(target.classList.contains(DAY_ITEM_CLASS_NAME) || target.nodeName === 'INPUT'){
-      target.classList.toggle('details')
-    }else{
-      target.closest(`.${DAY_ITEM_CLASS_NAME}`).classList.toggle('details')
-    }
-    const list = target.getElementsByClassName( 'day__item-todo')[0];
+const renderApp = (data, root) => {
+  const {getYear, getMonth, daysInMonth, getDay} = dataObject;
 
-    target.addEventListener('keyup',(e)=>{
-      const {target:{value},keyCode} = e;
-      if(keyCode === 13 && !!list) {
-        // console.log(list)
-        // console.log(value)
-        const item = document.createElement('li');
-        item.innerHTML = value;
-        list.appendChild(item)
-      }
-    })
-  },false)
+  const monthComponent = monthHeaderTempl(getYear,getMonth, getDay);
+  const daysComponent = daysWrapper(daysInMonth);
+  root.innerHTML = `${monthComponent} ${daysComponent}`;
+
+  addActions(observer, dataObject)
 }
 
 const mainApp = () => {
-  const idWrapper = document.getElementById('app')
-  const {year, month, daysInMonth, day} = getCustomData();
-  const monthComponent = monthHeaderTempl(year,month, day);
-  const daysComponent = daysWrapper(daysInMonth);
+  const idWrapper = document.getElementById('app');
 
+  observer.subscribe(()=>{
+    renderApp(dataObject,idWrapper)
+  })
 
-
-
-
-
-
-  //write app to index.html
-  idWrapper.innerHTML = `${monthComponent} ${daysComponent}`;
-
-  //add Listeners
-  addActions()
+  renderApp(dataObject,idWrapper)
 }
+
 mainApp()
+
+
+/*
+  TODO @Vlad
+    * add class to current day;
+    * state management?
+
+
+ */

@@ -17,12 +17,14 @@ const renderApp = (data, root) => {
 
   const monthComponent = monthHeaderTempl(getYear,getMonth);
   const daysComponent = daysWrapper(getDaysDetails);
+  //Render or rerender app
   root.innerHTML = `${monthComponent} ${daysComponent}`;
 
   addActions(observer, dataObject, store)
 }
 
 const mainApp = () => {
+  //initial and first step for app
   const idWrapper = document.getElementById('app');
 
   observer.subscribe(()=>{

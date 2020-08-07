@@ -13,31 +13,28 @@ export class EventObserver {
     this.observers.forEach(subscriber => subscriber(data))
   }
 }
+
 export class CustomData {
   constructor () {
     this.now = new Date();
-    this.monthCounter = this.now.getMonth();
-    this.daysInMonth = 0;
   }
-  // get getNowProp () {
-  //   return this.now;
-  // }
+
   get getYear () {
     return this.now.getFullYear()
   }
+
   get getMonth () {
     const currentMonth = this.now.getMonth().toLocaleString()
     return monthNames[currentMonth]
   }
-  get getDay () {
-    return this.now.getDay()
-  }
+
   get isCurrentMonth () {
     const date = new Date();
     const thisDate = this.now.getFullYear().toString() + this.now.getMonth().toString();
     const currentDate = date.getFullYear().toString() + date.getMonth().toString();
     return thisDate === currentDate;
   };
+
   get getDaysDetails () {
     const daysInMonth = this.getDaysInMonth
     const now = this.now;
@@ -71,13 +68,12 @@ export class CustomData {
       date.getMonth()+1,
       0).getDate();
   }
+
   goToNextMonth () {
     this.now.setMonth(this.now.getMonth() + 1);
   }
+
   goToPrevMonth () {
-    if(this.monthCounter < 0) {
-      this.now.setFullYear(this.now.getFullYear( )  )
-    }
     this.now.setMonth(this.now.getMonth() - 1);
   }
 }
@@ -93,7 +89,6 @@ export class Store {
     } else {
       this.data[key] = [value]
     }
-  return true
   }
 
   getItem(key) {

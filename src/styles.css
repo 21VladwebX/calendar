@@ -14,7 +14,18 @@ body {
     padding: 10px;
     box-shadow: -1px -6px 20px 17px #dad7d7;
 }
-.mount__header {
+
+.calendar__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dad7d7;
+}
+
+.nav {
+    cursor: pointer;
+}
+
+.data__info {
     padding: 25px 0;
     margin: auto;
     width: 100%;
@@ -33,6 +44,7 @@ body {
     border: 1px solid #e8e8e8;
     height: 78px;
 }
+
 .day__item, .calendar__days ul li, .day__item.empty {
     width: 78px;
     overflow: hidden;
@@ -49,9 +61,11 @@ body {
 .calendar__days ul li:last-child {
     border: 1px solid red;
 }
+
 .day__item.empty {
     pointer-events: none;
 }
+
 .calendar__days ul{
     display: flex;
     padding: 0;
@@ -61,6 +75,7 @@ body {
 
 .calendar__days ul li {
     padding: 5px 0;
+    cursor: default;
 }
 
 .day__item.details {
@@ -80,7 +95,8 @@ body {
     display: none;
     transition: all .5s ease-in-out;
 }
-.day__item-todo{
+
+.day__item-todo {
     padding: 0;
     margin-top: 4px;
 }
@@ -112,14 +128,6 @@ body {
 .day__item:hover {
     background-color: #bcbcbc;
 }
-/*TODO @Vlad clear styles and group rules*/
-.calendar__header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #dad7d7;
-}
-.nav {
-    cursor: pointer;
-}
+
 
 

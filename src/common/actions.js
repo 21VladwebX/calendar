@@ -3,13 +3,16 @@ import {DAY_ITEM_CLASS_NAME} from "./constants.js";
 const inputEventListener = (event, parent, store) => {
   const {target:{value},keyCode} = event;
 
+  //only on Enter click, and on div element
   if(keyCode === 13 && !!parent && !!value.length) {
+    //append todo/task to current day
     const item = document.createElement('li');
     const key = parent.closest(`.${DAY_ITEM_CLASS_NAME}`).attributes[1].value
     const newItem = {
       key,
       value
     }
+
     store.setNewItem(newItem)
     parent.appendChild(item)
 
@@ -21,9 +24,9 @@ const addDaysEventsListener = store => {
   const calendarWrapper = document.getElementsByClassName('days__wrapper')[0];
 
   calendarWrapper.addEventListener('click', ({target})=>{
-    if(target.classList.contains(DAY_ITEM_CLASS_NAME) || target.nodeName === 'INPUT'){
+    if(target.classList.contains(DAY_ITEM_CLASS_NAME) || target.nodeName === 'INPUT') {
       target.classList.toggle('details')
-    }else{
+    } else {
       target.closest(`.${DAY_ITEM_CLASS_NAME}`).classList.toggle('details')
     }
 
@@ -41,9 +44,9 @@ const addNavEventListener = (observer, dataObject) => {
       if(classList.contains('nav')){
         const direction = classList.contains('prev') ? 'prev' : 'next';
 
-        if(direction === 'prev'){
+        if(direction === 'prev') {
           dataObject.goToPrevMonth()
-        }else {
+        } else {
           dataObject.goToNextMonth()
         }
         observer.broadcast('rerender')

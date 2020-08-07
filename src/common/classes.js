@@ -46,7 +46,8 @@ export class CustomData {
     const isCurrentMonth = this.isCurrentMonth;
     const uniqIdTemp = `${now.getFullYear()}/${now.getMonth()}`;
     const allMonthDaysData = []; // array of object of days in month
-    const currentDay = new Date().getDay();
+    const currentDay = new Date().getDate();
+
     let daysCount = 1; //counter of days in month
 
     for (let i = 0; i < allMonthDays; i++) { //set data to allMonthDaysData
@@ -55,7 +56,7 @@ export class CustomData {
         allMonthDaysData.push({
           id: `${uniqIdTemp}/${dayOfMonth}`,
           value: dayOfMonth,
-          isCurrentDay: isCurrentMonth && i === currentDay
+          isCurrentDay: isCurrentMonth && dayOfMonth === currentDay
         });
       } else {
         allMonthDaysData.push(null)
@@ -70,23 +71,14 @@ export class CustomData {
       date.getMonth()+1,
       0).getDate();
   }
-  changeToNextMonth () {
-    this.monthCounter = this.monthCounter++ > 12 ? 0 : this.monthCounter++
-    console.log(this.monthCounter)
-    this.now.setMonth(this.monthCounter);
+  goToNextMonth () {
+    this.now.setMonth(this.now.getMonth() + 1);
   }
-  changeToPrevMonth () {
-
-    //TODO @Vlad bug with prev month
-    this.monthCounter = this.monthCounter-- < 0 ? 12 : this.monthCounter
-    // this.monthCounter--
-    console.log(this.monthCounter)
-    console.log(this.monthCounter  < 0)
-    // debugger
+  goToPrevMonth () {
     if(this.monthCounter < 0) {
       this.now.setFullYear(this.now.getFullYear( )  )
     }
-    this.now.setMonth(this.monthCounter);
+    this.now.setMonth(this.now.getMonth() - 1);
   }
 }
 
@@ -105,6 +97,10 @@ export class Store {
   }
 
   getItem(key) {
-    return this.data[key] || null
+    let res = null;
+    if(!!key) {
+      res = this.data[key] || null
+    }
+    return res;
   }
 }

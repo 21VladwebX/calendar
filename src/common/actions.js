@@ -42,9 +42,9 @@ const addNavEventListener = (observer, dataObject) => {
         const direction = classList.contains('prev') ? 'prev' : 'next';
 
         if(direction === 'prev'){
-          dataObject.changeToPrevMonth()
+          dataObject.goToPrevMonth()
         }else {
-          dataObject.changeToNextMonth()
+          dataObject.goToNextMonth()
         }
         observer.broadcast('rerender')
       }

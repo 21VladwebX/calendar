@@ -1,16 +1,24 @@
 import { DAY_ITEM_CLASS_NAME } from './constants.js';
+import { daysTodosItemsTempl, getInputTempl} from  './templates.js';
 
-const getInput = () => {
-  return `<input type="text" /> `
+
+const getItemData = (day, getItem) => {
+  const item = day && getItem(day.id);
+  return !!item ? item : '';
 }
 
-export const getDaysWrap = days => {
+export const getDaysWrap = (days, getItem) => {
+
   return days.map(item=>{
+    const itemData = getItemData(item, getItem);
+    const getItemsTemp = itemData && daysTodosItemsTempl(itemData);
 
     return !!item ?
-          `<div class="${DAY_ITEM_CLASS_NAME} ${item.isCurrentDay && "current__day"}" data-id="${item.id}">${item.value} 
-                <div class="day__item-input">${getInput()}</div>
-                 <ul class="day__item-todo"></ul>
+          `<div class="${DAY_ITEM_CLASS_NAME} ${item.isCurrentDay ? "current__day" : ""}" data-id="${item.id}">${item.value} 
+                <div class="day__item-input">${getInputTempl()}</div>
+                 <ul class="day__item-todo">
+                    ${getItemsTemp}
+                  </ul>
             </div>`
       : `<div class="day__item empty"></div>`
   })

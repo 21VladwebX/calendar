@@ -21,3 +21,9 @@ export const daysTempl = children => {
   const wrapper = `<div class="days__wrapper">${children.join()}</div>`
   return wrapper.replace(/,/g, '');
 }
+
+export const daysTodosItemsTempl = todos => todos.map(item=> `<li>${item}</li>`)
+
+export const getInputTempl = () => {
+  return `<input type="text" /> `
+}

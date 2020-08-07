@@ -8,7 +8,7 @@ const dataObject = new CustomData();
 const store = new Store();
 
 const daysWrapper = getDaysDetails => {
-  const daysWrap = getDaysWrap(getDaysDetails);
+  const daysWrap = getDaysWrap(getDaysDetails, store.getItem.bind(store));
   return daysTempl(daysWrap)
 }
 

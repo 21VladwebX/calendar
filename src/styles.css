@@ -43,8 +43,10 @@ body {
 .current__day {
     background-color: blue;
 }
-.day__item:nth-child(7n-1),.day__item:nth-child(7n),
-.calendar__days ul li:nth-child(6n),.calendar__days ul li:last-child {
+.day__item:nth-child(7n-1),
+.day__item:nth-child(7n),
+.calendar__days ul li:nth-child(6n),
+.calendar__days ul li:last-child {
     border: 1px solid red;
 }
 .day__item.empty {
@@ -113,6 +115,7 @@ body {
 /*TODO @Vlad clear styles and group rules*/
 .calendar__header {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid #dad7d7;
 }
 .nav {

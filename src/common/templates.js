@@ -4,6 +4,17 @@ export const monthHeaderTempl = (year,month) => `
   <div class="mount__header">${year}/${month}</div>
   <div class="nav next">Next month</div>
 </div>
+<div class="calendar__days">
+  <ul>
+      <li>Monday</li>
+      <li>Tuesday</li>
+      <li>Wednesday</li>
+      <li>Thursday</li>
+      <li>Friday</li>
+      <li>Saturday</li>
+      <li>Sunday</li>
+  </ul>
+</div>
 `
 
 export const daysTempl = children => {

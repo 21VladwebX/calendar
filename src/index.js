@@ -1,24 +1,25 @@
 import { monthHeaderTempl, daysTempl } from "./common/templates.js";
 import { getDaysWrap } from './common/utils.js';
 import { addActions } from  './common/actions.js';
-import { EventObserver, CustomData } from "./common/classes.js";
+import { EventObserver, CustomData, Store } from "./common/classes.js";
 
 const observer = new EventObserver();
 const dataObject = new CustomData();
+const store = new Store();
 
-const daysWrapper = (days) => {
-  const daysWrap = getDaysWrap(days);
+const daysWrapper = getDaysDetails => {
+  const daysWrap = getDaysWrap(getDaysDetails);
   return daysTempl(daysWrap)
 }
 
 const renderApp = (data, root) => {
-  const {getYear, getMonth, daysInMonth, getDay} = dataObject;
+  const {getYear, getMonth, getDaysDetails} = dataObject;
 
-  const monthComponent = monthHeaderTempl(getYear,getMonth, getDay);
-  const daysComponent = daysWrapper(daysInMonth);
+  const monthComponent = monthHeaderTempl(getYear,getMonth);
+  const daysComponent = daysWrapper(getDaysDetails);
   root.innerHTML = `${monthComponent} ${daysComponent}`;
 
-  addActions(observer, dataObject)
+  addActions(observer, dataObject, store)
 }
 
 const mainApp = () => {

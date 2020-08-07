@@ -1,19 +1,26 @@
 import {DAY_ITEM_CLASS_NAME} from "./constants.js";
 
-const inputEventListener = (event,parent) => {
+const inputEventListener = (event, parent, store) => {
   const {target:{value},keyCode} = event;
+
   if(keyCode === 13 && !!parent && !!value.length) {
     const item = document.createElement('li');
-    item.textContent = value;
+    const key = parent.closest(`.${DAY_ITEM_CLASS_NAME}`).attributes[1].value
+    const newItem = {
+      key,
+      value
+    }
+    store.setNewItem(newItem)
     parent.appendChild(item)
+
+    item.textContent = value;
   }
 }
 
-const addDaysEventsListener = () => {
+const addDaysEventsListener = store => {
   const calendarWrapper = document.getElementsByClassName('days__wrapper')[0];
 
   calendarWrapper.addEventListener('click', ({target})=>{
-    console.log(target)
     if(target.classList.contains(DAY_ITEM_CLASS_NAME) || target.nodeName === 'INPUT'){
       target.classList.toggle('details')
     }else{
@@ -22,7 +29,7 @@ const addDaysEventsListener = () => {
 
     const list = target.getElementsByClassName( 'day__item-todo')[0];
     target.addEventListener('keyup',(e)=>{
-      inputEventListener(e, list)
+      inputEventListener(e, list, store)
     })
   })
 }
@@ -44,7 +51,7 @@ const addNavEventListener = (observer, dataObject) => {
     })
 }
 
-export const addActions = (observer, dataObject) => {
-  addDaysEventsListener()
+export const addActions = (observer, dataObject, store) => {
+  addDaysEventsListener(store)
   addNavEventListener(observer, dataObject)
 }
